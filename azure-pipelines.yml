@@ -8,21 +8,26 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
+pool:
+  vmImage: 'windows-latest'
+
+          
+#       pool:
+#         vmImage: $(imageName)
+
+# strategy:
+  # maxParallel: 3
+  # matrix:
+    # linux:
+      # imageName: "ubuntu-latest"
+    # mac:
+      # imageName: "macOS-latest"
+    # windows:
+      # imageName: "windows-latest"
+
 stages:
 - stage: RunPipeline
   jobs: 
-  
-  - job: MyJob
-    strategy:
-      maxParallel: 3
-      matrix:
-        linux:
-          imageName: "ubuntu-latest"
-        mac:
-          imageName: "macOS-latest"
-        windows:
-          imageName: "windows-latest"
-
   - job: InstallNugetAndPackages
     steps:
       - task: NuGetToolInstaller@1
@@ -50,9 +55,6 @@ stages:
         inputs:
           projectFilePath: '$(System.DefaultWorkingDirectory)'
           projectLanguage: 'en'
-          
-#       pool:
-#         vmImage: $(imageName)
 
 
 
