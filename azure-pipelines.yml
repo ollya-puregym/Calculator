@@ -3,30 +3,33 @@
 trigger:
 - main
 
-strategy:
-  matrix:
-    linux:
-      imageName: "ubuntu-latest"
-    mac:
-      imageName: "macOS-latest"
-    windows:
-      imageName: "windows-latest"
-  maxParallel: 3
-
-pool:
-  vmImage: $(imageName)
-
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
-steps:
-- task: NuGetToolInstaller@1
+stages:
+- stage: My Stage
+  jobs: 
+  - job: MyJob
+    strategy:
+      maxParallel: 3
+      matrix:
+      linux:
+        imageName: "ubuntu-latest"
+      mac:
+        imageName: "macOS-latest"
+      windows:
+        imageName: "windows-latest"
+  - job: NugetInstallation
+      pool:
+        vmImage: $(imageName)
+      steps:
+        - task: NuGetToolInstaller@1
+        - task: NuGetCommand@2
+          inputs:
+            restoreSolution: '$(solution)'
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
 
 - task: VSBuild@1
   inputs:
