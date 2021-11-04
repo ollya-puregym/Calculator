@@ -26,9 +26,11 @@ pool:
       # imageName: "windows-latest"
 
 stages:
-- stage: Install_Nuget_and_Configure_Packages
+- stage: configureNugetAndBuildVS
+  displayName: 'Configure Nuget and Build VS'
   jobs: 
-  - job: InstallNugetAndPackages
+  - job: myJob
+    displayName: 'This is my job'
     steps:
       - task: NuGetToolInstaller@1
       - task: NuGetCommand@2
