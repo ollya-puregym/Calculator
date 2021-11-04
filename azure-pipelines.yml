@@ -33,15 +33,3 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: SpecFlowPlus@0
-  displayName: 'My SpecFlow tests'
-  inputs:
-    generatorSource: 'FeatureFolder'
-    projectFilePath: 'SpecFlowCalculator.Specs'
-    projectName: 'test'
-    #testExecutionJson: # Optional
-    projectLanguage: 'en'
-    #bindingAssemblies: # Optional
-    #output: # Optional
-  continueOnError: true
-  timeoutInMinutes: 10
