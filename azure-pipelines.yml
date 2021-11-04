@@ -1,7 +1,4 @@
 # ASP.NET Core (.NET Framework)
-# Build and test ASP.NET Core projects targeting the full .NET Framework.
-# Add steps that publish symbols, save build artifacts, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
 - main
@@ -30,6 +27,15 @@ steps:
 
 - task: VSTest@2
   inputs:
+    testAssemblyVer2: |
+      **\SpecFlowCalculator.Specs.dll
+      !**\obj\**
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: SpecFlowPlus@0
+  inputs:
+    projectFilePath: '$(System.DefaultWorkingDirectory)'
+    projectLanguage: 'en'
+
 
