@@ -32,8 +32,8 @@ stages:
     steps:
       - task: NuGetToolInstaller@1
       - task: NuGetCommand@2
-#- stage: Run_Build
-#  jobs:
+- stage: Run_Build
+  jobs:
   - job: RunVSBuild
     steps:
       - task: VSBuild@1
@@ -42,8 +42,8 @@ stages:
           msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
           platform: '$(buildPlatform)'
           configuration: '$(buildConfiguration)'
-#- stage: Run_Calculator_Unit_Tests
-#  jobs:
+- stage: Run_Calculator_Unit_Tests
+  jobs:
   - job: TestBuild
     steps: 
       - task: VSTest@2
