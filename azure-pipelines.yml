@@ -26,14 +26,15 @@ pool:
       # imageName: "windows-latest"
 
 stages:
-- stage: RunPipeline
+- stage: Install Nuget and Configure Packages
   jobs: 
   - job: InstallNugetAndPackages
     steps:
       - task: NuGetToolInstaller@1
       - task: NuGetCommand@2
-
-  - job: RunBuild
+- stage: Run Build
+  jobs:
+  - job: RunVSBuild
     steps:
       - task: VSBuild@1
         inputs:
@@ -41,7 +42,8 @@ stages:
           msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
           platform: '$(buildPlatform)'
           configuration: '$(buildConfiguration)'
-
+- stage: Run Calculator Unit Tests
+  jobs:
   - job: TestBuild
     steps: 
       - task: VSTest@2
