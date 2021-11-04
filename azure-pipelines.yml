@@ -26,7 +26,7 @@ pool:
 
 stages:
 - stage: configureNugetAndBuildVS
-  displayName: 'Configure Nuget and Build VS'
+  displayName: 'Build and Test Calculator'
   jobs: 
   - job: Build
     displayName: 'Configure Nuget and Build VS'
@@ -41,9 +41,6 @@ stages:
           msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
           platform: '$(buildPlatform)'
           configuration: '$(buildConfiguration)'
-  - job: TestBuild
-    displayName: 'Run Unit Tests'
-    steps: 
       - task: VSTest@2
         inputs:
           testAssemblyVer2: |
@@ -55,6 +52,5 @@ stages:
         inputs:
           projectFilePath: '$(System.DefaultWorkingDirectory)'
           projectLanguage: 'en'
-
 
 
