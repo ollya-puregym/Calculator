@@ -34,10 +34,6 @@ stages:
       - task: NuGetCommand@2
         inputs:
           restoreSolution: '$(solution)'
-- stage: Run_Build
-  jobs:
-  - job: RunVSBuild
-    steps:
       - task: VSBuild@1
         inputs:
           solution: '$(solution)'
