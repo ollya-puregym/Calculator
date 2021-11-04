@@ -9,8 +9,9 @@ variables:
   buildConfiguration: 'Release'
 
 stages:
-- stage: My Stage
+- stage: RunPipeline
   jobs: 
+  
   - job: MyJob
     strategy:
       maxParallel: 3
