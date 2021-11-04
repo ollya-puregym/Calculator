@@ -10,7 +10,6 @@ variables:
 
 pool:
   vmImage: 'windows-latest'
-
           
 #       pool:
 #         vmImage: $(imageName)
@@ -29,8 +28,8 @@ stages:
 - stage: configureNugetAndBuildVS
   displayName: 'Configure Nuget and Build VS'
   jobs: 
-  - job: myJob
-    displayName: 'This is my job'
+  - job: Build
+    displayName: 'Configure Nuget and Build VS'
     steps:
       - task: NuGetToolInstaller@1
       - task: NuGetCommand@2
@@ -42,9 +41,8 @@ stages:
           msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
           platform: '$(buildPlatform)'
           configuration: '$(buildConfiguration)'
-- stage: Run_Calculator_Unit_Tests
-  jobs:
   - job: TestBuild
+    displayName: 'Run Unit Tests'
     steps: 
       - task: VSTest@2
         inputs:
